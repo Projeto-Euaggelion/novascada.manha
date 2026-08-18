@@ -4,12 +4,14 @@ import { getPaginatedSeries } from "@/lib/content";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import { DOTS, getPaginationRange } from "@/lib/pagination";
 
 export const metadata: Metadata = {
   title: "Todas as Séries Temáticas",
@@ -104,16 +106,22 @@ export default async function SeriesPage({ searchParams }: SeriesPageProps) {
               />
             </PaginationItem>
 
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink
-                  href={`/series?page=${i + 1}`}
-                  isActive={currentPage === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {getPaginationRange(currentPage, totalPages).map((pageNumber, i) =>
+              pageNumber === DOTS ? (
+                <PaginationItem key={`dots-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href={`/series?page=${pageNumber}`}
+                    isActive={currentPage === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
             <PaginationItem>
               <PaginationNext

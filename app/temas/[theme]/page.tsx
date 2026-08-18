@@ -5,12 +5,14 @@ import { getTopicBySlug, getPaginatedPostsByTopic, getAllTopics } from "@/lib/co
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import { DOTS, getPaginationRange } from "@/lib/pagination";
 
 interface ThemePageProps {
   params: Promise<{ theme: string }>;
@@ -132,16 +134,22 @@ export default async function ThemePage({ params, searchParams }: ThemePageProps
               />
             </PaginationItem>
 
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink
-                  href={`/temas/${topic.slug}?page=${i + 1}`}
-                  isActive={currentPage === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {getPaginationRange(currentPage, totalPages).map((pageNumber, i) =>
+              pageNumber === DOTS ? (
+                <PaginationItem key={`dots-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href={`/temas/${topic.slug}?page=${pageNumber}`}
+                    isActive={currentPage === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
             <PaginationItem>
               <PaginationNext

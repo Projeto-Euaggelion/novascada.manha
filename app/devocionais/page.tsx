@@ -4,12 +4,14 @@ import { getPaginatedPosts } from "@/lib/content";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import { DOTS, getPaginationRange } from "@/lib/pagination";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -98,14 +100,6 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
         ))}
       </div>
 
-      <ins className="adsbygoogle"
-        style={{display: 'block'}}
-        data-ad-format="fluid"
-        data-ad-layout-key="-fs+3n+7a-ag-4h"
-        data-ad-client="ca-pub-8744567957048944"
-        data-ad-slot="4222239009"
-      ></ins>
-
       {totalPages > 1 && (
         <Pagination>
           <PaginationContent>
@@ -116,16 +110,22 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
               />
             </PaginationItem>
             
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink 
-                  href={`/devocionais?page=${i + 1}`}
-                  isActive={currentPage === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {getPaginationRange(currentPage, totalPages).map((pageNumber, i) =>
+              pageNumber === DOTS ? (
+                <PaginationItem key={`dots-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href={`/devocionais?page=${pageNumber}`}
+                    isActive={currentPage === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
             <PaginationItem>
               <PaginationNext 
@@ -137,9 +137,6 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
         </Pagination>
       )}
     </section>
-    <Script id="adsbygoogle-push-devocionais" strategy="afterInteractive">
-      {`(adsbygoogle = window.adsbygoogle || []).push({});`}
-    </Script>
     </>
   );
 }

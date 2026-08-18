@@ -4,11 +4,13 @@ import { getPaginatedBlogPosts } from "@/lib/content";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { DOTS, getPaginationRange } from "@/lib/pagination";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -97,16 +99,22 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               />
             </PaginationItem>
             
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink 
-                  href={`/blog?page=${i + 1}`}
-                  isActive={currentPage === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {getPaginationRange(currentPage, totalPages).map((pageNumber, i) =>
+              pageNumber === DOTS ? (
+                <PaginationItem key={`dots-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href={`/blog?page=${pageNumber}`}
+                    isActive={currentPage === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
             <PaginationItem>
               <PaginationNext 

@@ -11,6 +11,7 @@ import {
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/pagination";
 import { Badge } from "@/components/ui/badge";
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import { DOTS, getPaginationRange } from "@/lib/pagination";
 
 interface ChapterPageProps {
   params: Promise<{ book: string; chapter: string }>;
@@ -185,16 +187,22 @@ export default async function ChapterPage({ params, searchParams }: ChapterPageP
               />
             </PaginationItem>
 
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <PaginationItem key={i}>
-                <PaginationLink
-                  href={`/biblia/${bookInfo.slug}/${chapter}?page=${i + 1}`}
-                  isActive={currentPage === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {getPaginationRange(currentPage, totalPages).map((pageNumber, i) =>
+              pageNumber === DOTS ? (
+                <PaginationItem key={`dots-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href={`/biblia/${bookInfo.slug}/${chapter}?page=${pageNumber}`}
+                    isActive={currentPage === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
             <PaginationItem>
               <PaginationNext
