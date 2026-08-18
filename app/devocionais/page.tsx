@@ -1,5 +1,3 @@
-// /devocionais/[slug]/page.tsx
-
 import { Metadata } from "next";
 import Link from "next/link";
 import { getPaginatedPosts } from "@/lib/content";
@@ -12,6 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Todos os Devocionais",
@@ -63,9 +62,10 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
   };
 
   return (
+    <>
     <section className="space-y-12">
       {/* Injeção de dados estruturados para listagem */}
-      <script
+      <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -98,6 +98,14 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
         ))}
       </div>
 
+      <ins className="adsbygoogle"
+        style={{display: 'block'}}
+        data-ad-format="fluid"
+        data-ad-layout-key="-fs+3n+7a-ag-4h"
+        data-ad-client="ca-pub-8744567957048944"
+        data-ad-slot="4222239009"
+      ></ins>
+
       {totalPages > 1 && (
         <Pagination>
           <PaginationContent>
@@ -129,5 +137,11 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
         </Pagination>
       )}
     </section>
+    <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944"
+     crossorigin="anonymous"></Script>
+    <Script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </Script>
+    </>
   );
 }
