@@ -68,6 +68,13 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", roboto.variable, merriweatherHeading.variable)}
     >
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="bg-background text-foreground min-h-screen flex flex-col">
         <SiteNav />
 
@@ -162,13 +169,9 @@ export default async function RootLayout({
         </footer>
         <Analytics/>
         <Script
-          id="adsbygoogle-lib"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944"
-          crossOrigin="anonymous"
+          id="adsbygoogle-push-footer"
           strategy="afterInteractive"
-        />
-        <Script id="adsbygoogle-push-footer" strategy="afterInteractive">
+        >
           {`(adsbygoogle = window.adsbygoogle || []).push({});`}
         </Script>
       </body>
