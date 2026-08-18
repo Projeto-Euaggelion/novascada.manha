@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 import SiteNav from "@/components/site-nav";
 import { getAllTopics } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
-import { WhatsappLogoIcon } from "@phosphor-icons/react";
+import Player from "@/components/player";
+import { AudioPlayerProvider } from "@/components/audio-player-provider";
 import CTALinks from "@/components/cta-links";
 import Script from "next/script";
 
@@ -76,11 +77,15 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-background text-foreground min-h-screen flex flex-col">
-        <SiteNav />
+        <AudioPlayerProvider>
+          <SiteNav />
 
-        <main className="flex-1 max-w-2xl mx-auto px-8 md:px-0 pt-32 pb-20 w-full">
-          {children}
-        </main>
+          <main className="flex-1 max-w-2xl mx-auto px-8 md:px-0 pt-32 pb-20 w-full">
+            {children}
+          </main>
+
+          <Player />
+        </AudioPlayerProvider>
 
         <footer>
           <ins

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -29,7 +30,7 @@ export function AppBreadcrumb({ items }: AppBreadcrumbProps) {
             <div key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               <BreadcrumbItem>
                 {item.href && !isLast ? (
-                  <BreadcrumbLink render={<a href={item.href} />}>
+                  <BreadcrumbLink render={<Link href={item.href} />}>
                     {item.label}
                   </BreadcrumbLink>
                 ) : (

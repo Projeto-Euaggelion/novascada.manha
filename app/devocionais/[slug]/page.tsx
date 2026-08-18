@@ -7,6 +7,7 @@ import { calculateReadingTime } from "@/utils/reading-time";
 import PostFooter from "@/components/post-footer";
 import { Badge } from "@/components/ui/badge"
 import { AppBreadcrumb } from "@/components/app.breadcrumb";
+import PlayAudioButton from "@/components/play-audio-button";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -116,6 +117,15 @@ export default async function PostPage({ params }: PostPageProps) {
             <p>por {post.author}</p>
             <p>leia em {readingTime} {readingTime === 1 ? "minuto" : "minutos"}</p>
           </div>
+
+          {post.audio?.source && (
+            <PlayAudioButton
+              src={post.audio.source}
+              cover={post.audio.cover}
+              title={post.title}
+              href={`/devocionais/${slug}`}
+            />
+          )}
         </header>
 
         <MdxRenderer content={post.content} />

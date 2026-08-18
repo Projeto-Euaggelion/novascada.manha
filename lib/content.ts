@@ -21,6 +21,11 @@ export interface PostSection {
   description?: string;
 }
 
+export interface PostAudio {
+  source: string;
+  cover?: string;
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -29,6 +34,7 @@ export interface Post {
   content: string;
   section?: PostSection;
   reference?: PostReference;
+  audio?: PostAudio;
   [key: string]: any;
 }
 

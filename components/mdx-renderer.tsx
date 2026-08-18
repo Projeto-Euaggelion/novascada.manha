@@ -33,7 +33,12 @@ interface MdxRendererProps {
 // Se você quiser customizar tags específicas do Markdown usando componentes do shadcn/ui futuramente,
 // basta mapeá-los neste objeto components.
 const components = {
-  a: ({ ...props }) => <a className="text-primary underline" {...props} />,
+  a: ({ href, ...props }: React.ComponentProps<"a">) =>
+    href?.startsWith("/") ? (
+      <Link href={href} className="text-primary underline" {...props} />
+    ) : (
+      <a href={href} className="text-primary underline" {...props} />
+    ),
   h1: ({ ...props }) => <h1 className="text-3xl font-bold mt-8 mb-4 text-foreground" {...props} />,
   h2: ({ ...props }) => <h2 className="text-2xl font-bold mt-8 mb-4 text-foreground" {...props} />,
   h3: ({ ...props }) => <h3 className="text-xl font-bold mt-6 mb-3 text-foreground" {...props} />,
