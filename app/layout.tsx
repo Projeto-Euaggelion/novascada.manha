@@ -9,6 +9,7 @@ import { getAllTopics } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { WhatsappLogoIcon } from "@phosphor-icons/react";
 import CTALinks from "@/components/cta-links";
+import Script from "next/script";
 
 const merriweatherHeading = Merriweather({subsets:['latin'],variable:'--font-heading'});
 const roboto = Roboto({subsets:['latin'],variable:'--font-sans'})
@@ -74,8 +75,21 @@ export default async function RootLayout({
           {children}
         </main>
 
-        <footer className="border-t border-ring/20">
-          <ul className="max-w-8xl mx-auto p-6 flex flex-col md:flex-row flex-wrap justify-start items-center gap-4 md:gap-6 border-b bg-secondary/30">
+        <footer>
+          <ins
+            className="adsbygoogle"
+            style={{
+              width: "100%",
+              display: "block"
+            }}
+            data-ad-client="ca-pub-8744567957048944"
+            data-ad-slot="1647564056"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          >  
+          </ins>
+
+          <ul className="border-t border-ring/20 max-w-8xl mx-auto p-6 flex flex-col md:flex-row flex-wrap justify-start items-center gap-4 md:gap-6 border-b bg-secondary/30">
             <li>
               Receba nossos devocionais no:
             </li>
@@ -147,6 +161,16 @@ export default async function RootLayout({
           </div>
         </footer>
         <Analytics/>
+        <Script
+          id="adsbygoogle-lib"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script id="adsbygoogle-push-footer" strategy="afterInteractive">
+          {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+        </Script>
       </body>
     </html>
   )
