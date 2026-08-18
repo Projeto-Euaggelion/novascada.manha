@@ -137,8 +137,11 @@ export default async function EdicoesPage({ searchParams }: EdicoesPageProps) {
         </Pagination>
       )}
     </section>
-    <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944"
-     crossorigin="anonymous"></Script>
+    <Script 
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744567957048944" 
+      strategy="lazyOnload"
+      crossOrigin="anonymous"
+    ></Script>
     <Script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </Script>
