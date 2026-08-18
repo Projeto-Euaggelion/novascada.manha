@@ -35,14 +35,13 @@ export default function PlayAudioButton({ src, title, href, cover }: PlayAudioBu
   };
 
   return (
-    <Item variant="outline" className="not-prose my-6">
+    <Item variant="outline" className="not-prose mt-10 -mb-10">
       <ItemMedia variant="image" className="size-14 overflow-hidden">
         <AudioCover cover={cover} title={title} size={56} />
       </ItemMedia>
 
       <ItemContent>
-        <ItemTitle className="text-sm">Ouvir devocional em áudio</ItemTitle>
-        <ItemDescription className="line-clamp-1">{title}</ItemDescription>
+        <ItemTitle className="text-sm">{title}</ItemTitle>
       </ItemContent>
 
       <ItemActions>

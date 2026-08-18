@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
+  DownloadIcon,
   PauseIcon,
   PlayIcon,
   QueueIcon,
@@ -39,6 +40,9 @@ export default function Player() {
   if (!currentTrack) return null;
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+
+  const extension = currentTrack.src.split(".").pop();
+  const downloadName = `${currentTrack.title.trim()}${extension ? `.${extension}` : ""}`;
 
   return (
     <section className="fixed left-0 bottom-0 w-full border-t border-border z-[9999]">
@@ -148,6 +152,15 @@ export default function Player() {
                   </span>
                 </Button>
               )}
+
+              <Button
+                size="icon"
+                variant="ghost"
+                aria-label="Baixar áudio"
+                render={<a href={currentTrack.src} download={downloadName} />}
+              >
+                <DownloadIcon />
+              </Button>
 
               <Button size="icon" variant="ghost" onClick={stop} aria-label="Fechar player">
                 <XIcon />
