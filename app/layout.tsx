@@ -89,11 +89,7 @@ export default async function RootLayout({
 
         <footer>
           <ins
-            className="adsbygoogle"
-            style={{
-              width: "100%",
-              display: "block"
-            }}
+            className="adsbygoogle max-w-2xl mx-auto block"
             data-ad-client="ca-pub-8744567957048944"
             data-ad-slot="1647564056"
             data-ad-format="auto"
